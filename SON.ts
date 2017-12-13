@@ -2,19 +2,19 @@
 
 export class SON {
     array(arr: Array<any>): String {
-        let stack = [];
+        let stack: Array<any> = [];
         let length = arr.length;
     
         for (let i = 0; i < length; i++) {
             stack.push(this.stringify(arr[i]));
         }
     
-        stack.push(`\\A${length}`);
+        stack.push(`A${length}`);
         return stack.join(' ');
     }
     
     object(obj: any): String {
-        let stack = [];
+        let stack: Array<any> = [];
         let length = 0;
     
         for (let key in obj) {
@@ -23,7 +23,7 @@ export class SON {
             length++;
         }
     
-        stack.push(`\\O${length}`);
+        stack.push(`O${length}`);
         return stack.join(' ');
     }
     
@@ -40,7 +40,7 @@ export class SON {
     }
 
     public stringify(obj: any): String {
-        let stack = [];
+        let stack: Array<any> = [];
     
         if (Array.isArray(obj)) {
             stack.push(this.array(obj));
@@ -60,7 +60,7 @@ export class SON {
     }
 
     public parse(son: String): any {
-        let stack = [];
+        let stack: Array<any> = [];
         let _son = son.split(' ');
         let sonItems = [];
 
@@ -73,32 +73,72 @@ export class SON {
                 _sonItem.push(_son[i]);
                 sonItems.push(_sonItem.join(' '));
             } else {
-                sonItems.push(_son[i])
+                if (_son[i] === 'True') {
+                    sonItems.push(true);
+                } else if (_son[i] === 'False') {
+                    sonItems.push(false);
+                } else if (_son[i] === 'Null') {
+                    sonItems.push(null);
+                } else {
+                    sonItems.push(_son[i])
+                }
             }
         }
         
         for (let i = 0; i < sonItems.length; i++) {
             let item = sonItems[i];
     
-            if (/^\\A/i.test(item)) {
-                let length = Number(item.match(/\\A(\d+)/i)[1]);
-                let array = [];
+            if (typeof item === 'string' && /^A/i.test(item)) {
+                let matches = item.match(/A(\d+)/i);
+                if (!matches || matches.length <= 0) {
+                    throw new Error('Error: invalid array length.');
+                }
+                let length = Number(matches[1]);
+                let array: Array<any> = [];
                 for (let _i = 0; _i < length; _i++) {
-                    array.push(stack.pop());
+                    if (stack.length === 0) {
+                        throw new Error('Error: stack is empty.');
+                    }
+                    let value = stack.pop();
+                    if (typeof value === 'string') {
+                        if (/^".*"$/.test(value)) {
+                            array.push(value.replace(/^"|"$/g, ''));
+                        } else if (value === 'True' || value === 'False') {
+                            array.push(value === 'True' ? true : false);
+                        } else if (value === 'Null') {
+                            array.push(null);
+                        } else {
+                            array.push(Number(value));
+                        }
+                    } else {
+                        array.push(value);
+                    }
+                    
                 }
     
                 stack.push(array);
-            } else if (/^\\O/i.test(item)) {
-                let length = Number(item.match(/\\O(\d+)/i)[1]);
-                let object = {};
+            } else if (typeof item === 'string' && /^O/i.test(item)) {
+                let matches = item.match(/O(\d+)/i);
+                if (!matches || matches.length <= 0) {
+                    throw new Error('Error: invalid object length.');
+                }
+                let length = Number(matches[1]);
+                let object: any = {};
                 for (let _i = 0; _i < length; _i++) {
+                    if (stack.length === 0) {
+                        throw new Error('Error: stack is empty.');
+                    }
                     let key = stack.pop().replace(/^"|"$/g, '');
+
+                    if (stack.length === 0) {
+                        throw new Error('Error: stack is empty.');
+                    }
                     let value = stack.pop();
                     if (typeof value === 'string') {
                         if (/^".*"$/.test(value)) {
                             object[key] = value.replace(/^"|"$/g, '');
                         } else if (value === 'True' || value === 'False') {
-                            object[key] = value === 'True' ? true : false;
+                            object[key] = (value === 'True' ? true : false);
                         } else if (value === 'Null') {
                             object[key] = null;
                         } else {
@@ -114,7 +154,7 @@ export class SON {
                 stack.push(item);
             }
         }
-    
+        
         return stack[0];
     }
 }
