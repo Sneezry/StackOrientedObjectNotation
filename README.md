@@ -1,10 +1,45 @@
-# Stack Object Notation
+# Stack Oriented Object Notation
 
-SON (Stack Object Notation) is a data-interchange format for communication between low-level programming languages and high-level programming languages. For low-level programming languages, SON is easy to parse by using stack. And for high-level programming languages, SON is easy to convert into JSON.
+SOON (Stack Oriented Object Notation) is a data-interchange format. It is easy for low-level programming langage to parse, and easy to convert from JSON.
+
+## Structure
+
+Similar with JSON, SOON is built on two commands:
+
+* A collection of name/value pairs (Object).
+* An ordered list of values (Array).
+
+### Dictionary
+
+```
+value1 key1 value2 key2 ... value<n> key<n> O<n>
+```
+
+The O command stands for Object.
+
+### Array
+
+```
+value1 value2 ... value<n> A<n>
+```
+
+The A command stands for Array.
+
+### String, Number, Boolean and Null
+
+Same as JSON, single string, number, boolean and null are valid SOON.
+
+```
+"Hello World"
+123
+True
+False
+Null
+```
 
 ## Compare with JSON
 
-| JSON | SON |
+| JSON | SOON |
 |:----:|:---:|
 | `"Hello World"` | `"Hello World"` |
 | `123` | `123` |
