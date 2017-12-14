@@ -102,16 +102,16 @@ export class SOON {
                     let value = stack.pop();
                     if (typeof value === 'string') {
                         if (/^".*"$/.test(value)) {
-                            array.push(value.replace(/^"|"$/g, ''));
+                            array.unshift(value.replace(/^"|"$/g, ''));
                         } else if (value === 'True' || value === 'False') {
-                            array.push(value === 'True' ? true : false);
+                            array.unshift(value === 'True' ? true : false);
                         } else if (value === 'Null') {
-                            array.push(null);
+                            array.unshift(null);
                         } else {
-                            array.push(Number(value));
+                            array.unshift(Number(value));
                         }
                     } else {
-                        array.push(value);
+                        array.unshift(value);
                     }
                     
                 }
