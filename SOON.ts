@@ -1,6 +1,6 @@
 "use strict";
 
-export class SON {
+export class SOON {
     array(arr: Array<any>): String {
         let stack: Array<any> = [];
         let length = arr.length;
