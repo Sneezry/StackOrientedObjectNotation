@@ -13,7 +13,7 @@ Similar with JSON, SOON is built on two commands:
 * A collection of name/value pairs (Object).
 * An ordered list of values (Array).
 
-### Dictionary
+### Object
 
 ```
 value1 key1 value2 key2 ... value<n> key<n> O<n>
