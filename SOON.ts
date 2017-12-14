@@ -65,11 +65,11 @@ export class SOON {
         let sonItems = [];
 
         for (let i = 0; i < _son.length; i++) {
-            if (/^".*[^"]$/.test(_son[i])) {
+            if (/^".*[^"]$/.test(_son[i]) || _son[i] === '"') {
                 let _sonItem = [];
-                while(!/^[^"].*"$/.test(_son[i])) {
+                do {
                     _sonItem.push(_son[i++]);
-                }
+                } while(!/^[^"].*"$/.test(_son[i]) && _son[i] !== '"');
                 _sonItem.push(_son[i]);
                 sonItems.push(_sonItem.join(' '));
             } else {
