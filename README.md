@@ -12,6 +12,6 @@ SON (Stack Object Notation) is a data-interchange format for communication betwe
 | `false` | `False` |
 | `null` | `Null` |
 | `["a", "b", 123]` | `"a" "b" 123 A3` |
-| `{"key1": "value1", "key2": "value2"}` | `"key1" "value1" "key2" "value2" O2` |
-| `{"key": ["value1", "value2"]}` | `"key" "value1" "value2" A2 O1` |
-| `[{"key": "value1"}, {"key": "value2"}]` | `"key" "value1" O1 "key" "value2" O1 A2` |
+| `{"key1": "value1", "key2": "value2"}` | `"value1" "key1" "value2" "key2" O2` |
+| `{"key": ["value1", "value2"]}` | `"value1" "value2" A2 "key" O1` |
+| `[{"key": "value1"}, {"key": "value2"}]` | `"value1" "key" O1 "value2" "key" O1 A2` |
