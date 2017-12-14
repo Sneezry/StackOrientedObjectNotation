@@ -5,7 +5,7 @@ export class SOON {
         let stack: Array<any> = [];
         let length = arr.length;
     
-        for (let i = 0; i < length; i++) {
+        for (let i = length - 1; i >= 0; i--) {
             stack.push(this.stringify(arr[i]));
         }
     
@@ -102,16 +102,16 @@ export class SOON {
                     let value = stack.pop();
                     if (typeof value === 'string') {
                         if (/^".*"$/.test(value)) {
-                            array.unshift(value.replace(/^"|"$/g, ''));
+                            array.push(value.replace(/^"|"$/g, ''));
                         } else if (value === 'True' || value === 'False') {
-                            array.unshift(value === 'True' ? true : false);
+                            array.push(value === 'True' ? true : false);
                         } else if (value === 'Null') {
-                            array.unshift(null);
+                            array.push(null);
                         } else {
-                            array.unshift(Number(value));
+                            array.push(Number(value));
                         }
                     } else {
-                        array.unshift(value);
+                        array.push(value);
                     }
                     
                 }
