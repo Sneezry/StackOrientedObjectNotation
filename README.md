@@ -1,6 +1,6 @@
 # Stack Oriented Object Notation
 
-SOON (Stack Oriented Object Notation) is a data-interchange format. It is easy for low-level programming langage to parse, and easy to convert from JSON.
+SOON (Stack Oriented Object Notation) is a data-interchange format. It is easy for low-level programming languages to parse, and easy to convert from JSON.
 
 ## Online Playground
 
