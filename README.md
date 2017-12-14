@@ -2,6 +2,10 @@
 
 SOON (Stack Oriented Object Notation) is a data-interchange format. It is easy for low-level programming langage to parse, and easy to convert from JSON.
 
+## Online Playground
+
+<https://output.jsbin.com/fohosabifa>
+
 ## Structure
 
 Similar with JSON, SOON is built on two commands:
